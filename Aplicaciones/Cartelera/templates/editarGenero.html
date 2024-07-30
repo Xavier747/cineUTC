@@ -1,0 +1,29 @@
+{% extends "./plantilla.html" %}
+{% block body %}
+<h1>EDITAR GENERO</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{% url 'procesoActualizacionGenero' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{generoEditar.id}}">
+                <label for=""><b>Nombre:</b></label>
+                <input type="text" name="nombre" class="form-control"
+                value="{{generoEditar.nombre}}"
+                id="nombre" placeholder="Ingrese el nombre del genero">
+                <label for=""><b>Descripción:</b></label>
+                <textarea name="descripcion" id="descripcion"
+                    class="form-control" rows="3"
+                    placeholder="Ingrese la descripcion"
+                >{{generoEditar.descripcion}}</textarea>
+                <br>
+                <button  type="submit" class="btn btn-warning">
+                    Actualizar</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'ListadoGenero' %}">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+<br>
+{% endblock %}

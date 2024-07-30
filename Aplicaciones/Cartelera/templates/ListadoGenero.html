@@ -1,0 +1,50 @@
+{% extends "./plantilla.html" %}
+{% block body %}
+<br>
+<div class="card">
+    <div class="card-title text-center">
+        <h3><b>Listado de Géneros</b></h3>
+    </div>
+</div>
+<br>
+<div class="text-end">
+  <a href="{% url 'nuevoGenero' %}" class="btn btn-success">Agregar Género</a>
+</div>
+<table style="margin-left: 25%; width: 50%;" class="table table-striped table-hover" id="tbl-generos">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">FOTO</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for generoTemporal in genero %}
+        <tr>
+            <td>{{ generoTemporal.id }}</td>
+            <td>{{ generoTemporal.nombre }}</td>
+            <td style="text-align: center;">
+              <a href="{{ generoTemporal.foto.url }}" target="_blank">
+                  <img src="{{ generoTemporal.foto.url }}" alt="" height="100px" width="100px" style="display: block; margin: 0 auto;">
+              </a>
+              <a download href="{{ generoTemporal.foto.url }}" style="display: block; text-align: center; margin-top: 5px; text-decoration: none; color: blue;">
+                  Descargar
+              </a>
+          </td>
+
+            <td>{{ generoTemporal.descripcion }}</td>
+            <td>            
+              <a href="{% url 'editarGenero' generoTemporal.id %}"class="btn btn-warning">Editar</a>
+              <a href="{% url 'EliminarGenero' generoTemporal.id %}" class="btn btn-danger" 
+                 onclick="return confirm('¿Estás seguro de eliminar?')">Eliminar</a>
+            </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+<script>
+  let table = new DataTable('#tbl-generos');
+</script>
+{% endblock %}
