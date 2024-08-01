@@ -1,25 +1,26 @@
 databases:
-  - name: servidorDavid
+  - name: mysitedb
     plan: free
-    databaseName: dbcine
-    user: david
+    databaseName: mysite_3ak3
+    user: mysite
 
 services:
   - type: web
-    plan: free
     name: cineUtc
+    plan: free
+    
     runtime: python
     buildCommand: "./build.sh"
     startCommand: "gunicorn cineUtc.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
-          name: servidorDavid
+          name: mysitedb
           property: externalConnectionString
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: cineutcdeployment.onrender.com
+        value: cineUTCdeployment.onrender.com
 
 
 
